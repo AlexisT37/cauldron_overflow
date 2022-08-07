@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class QuestionController
+class QuestionController extends AbstractController
 {
     /**
      * @Route("/")
@@ -17,12 +18,23 @@ class QuestionController
 
 
     /**
-     * @Route("/{slug}")
+     * @Route("/country/{country}")
      *
      * @return void
      */
-    public function moveToFinland($slug)
+    public function moveToCountry($country)
     {
-        return new Response(sprintf('We are moving to %s with Shashou !', $slug));
+
+        $othercountries = [
+            'Norway',
+            'Iceland',
+            'France',
+        ];
+
+
+        return $this->render('country/moveToCountry.html.twig', [
+            'country' => "the country I chose is: $country",
+            'othercountries' => $othercountries,
+        ]);
     }
 }

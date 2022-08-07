@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Country:
+	{{country}}
+{% endblock %}
+{% block body%}
+
+	<h1>{{ country }}</h1>
+
+	<div>
+		there is a nice country for us somewhere out there !
+	</div>
+
+	<h2>other countries:
+																									({{othercountries | length}})</h2>
+	<ul>
+		{% for country in othercountries %}
+			<li>{{country}}</li>
+		{% endfor %}
+	</ul>
+
+{% endblock %}
