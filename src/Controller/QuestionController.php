@@ -5,36 +5,39 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="app_homepage")
      */
-    public function homepage()
+    public function homepage(Environment $twigEnvironment)
     {
-        return new Response("the text I decided to use. Hack the planet!");
+        /*
+        // fun example of using the Twig service directly!
+        $html = $twigEnvironment->render('question/homepage.html.twig');
+
+        return new Response($html);
+        */
+
+        return $this->render('question/homepage.html.twig');
     }
 
-
     /**
-     * @Route("/country/{country}")
-     *
-     * @return void
+     * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function moveToCountry($country)
+    public function show($slug)
     {
-
-        $othercountries = [
-            'Norway',
-            'Iceland',
-            'France',
+        $answers = [
+            'Make sure your cat is sitting purrrfectly still 🤣',
+            'Honestly, I like furry shoes better than MY cat',
+            'Maybe... try saying the spell backwards?',
         ];
 
-
-        return $this->render('country/moveToCountry.html.twig', [
-            'country' => "the country I chose is: $country",
-            'othercountries' => $othercountries,
+        return $this->render('question/show.html.twig', [
+            'question' => ucwords(str_replace('-', ' ', $slug)),
+            'answers' => $answers,
         ]);
     }
 }
